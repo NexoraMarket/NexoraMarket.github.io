@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>NexoraMarket - цифровые инструменты и AI решения</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="NexoraMarket - маркетплейс цифровых инструментов: user-agent списки, тестовые базы данных и AI решения для разработки и экспериментов.">
+<meta name="keywords" content="user-agent list, тестовые данные, faker database, AI инструменты, цифровые товары, разработка, нейросети без цензуры, нейронка">
+<meta name="author" content="NexoraMarket">
+
+<meta property="og:title" content="NexoraMarket - цифровые инструменты">
+<meta property="og:description" content="User-agent списки, тестовые базы данных и AI решения для разработчиков.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexoramarket.github.io/">
+<meta property="og:image" content="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/main/NexoraMarketPreview.png">
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="canonical" href="https://nexoramarket.github.io/">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0c;
+  color: #fff;
+}
+
+header {
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  background: #111;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang-switch {
+  font-size: 14px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.lang-switch span {
+  margin: 0 5px;
+}
+
+.lang-switch span:hover {
+  color: #fff;
+}
+
+.container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #151517;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 12px;
+}
+
+.title {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.short {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.price {
+  margin-top: 10px;
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.more-btn {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  background: #222;
+  color: #aaa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.more-btn:hover {
+  color: #fff;
+  background: #333;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #4ade80;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  NexoraMarket
+  <div class="lang-switch">
+    <span onclick="setLang('ru')">RU</span> | 
+    <span onclick="setLang('en')">ENG</span>
+  </div>
+</header>
+
+<div class="container" id="products"></div>
+
+<script>
+let lang = localStorage.getItem("lang") || "ru";
+
+const translations = {
+  ru: {
+    more: "Подробнее"
+  },
+  en: {
+    more: "Details"
+  }
+};
+
+const products = [
+  
+  {
+    id: "NexoraNova-Uncensored",
+    name: { ru: "NexoraNova AI Uncensored", 
+    en: "NexoraNova AI Uncensored" },
+    short: { ru: "Локальная нейросеть без ограничений и цензуры.", 
+    en: "Local neural network without restrictions." },
+    price: "60-300 USDT",
+    img: "NexoraMarketPreview.png"
+  },
+  {
+    id: "Dataset",
+    name: { ru: "RU Users PRO Dataset", en: "RU Users PRO Dataset" },
+    short: { 
+    ru: "Готовая база пользователей для тестирования", 
+    en: "Ready-to-use user dataset for testing" 
+  },
+  price: "1-7 USDT",
+  img: "NexoraMarketPreview.png"
+}
+];
+
+function renderProducts() {
+  const container = document.getElementById("products");
+  container.innerHTML = "";
+
+  products.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${p.img}">
+      <div class="card-content">
+        <div class="title">${p.name[lang]}</div>
+        <div class="short">${p.short[lang]}</div>
+        <div class="price">${p.price}</div>
+        <button class="more-btn" onclick="openProduct('${p.id}')">${translations[lang].more}</button>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function openProduct(id) {
+  window.location.href = `products/${id}.html`;
+}
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem("lang", l);
+  renderProducts();
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
