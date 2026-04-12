@@ -5,17 +5,17 @@
 <title>NexoraMarket - цифровые инструменты и AI решения</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="NexoraMarket - маркетплейс цифровых инструментов: user-agent списки, тестовые базы данных и AI решения для разработки и экспериментов.">
+<meta name="description" content="NexoraMarket - маркетплейс цифровых решений и инструментов для разработки, автоматизации, приватности и исследований.">
 <meta name="keywords" content="user-agent list, тестовые данные, faker database, AI инструменты, цифровые товары, разработка, нейросети без цензуры, нейронка">
 <meta name="author" content="NexoraMarket">
 
 <meta property="og:title" content="NexoraMarket - цифровые инструменты">
-<meta property="og:description" content="User-agent списки, тестовые базы данных и AI решения для разработчиков.">
+<meta property="og:description" content="Маркетплейс цифровых решений и инструментов для разработки, автоматизации, приватности и исследований.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nexoramarket.github.io/">
 <meta property="og:image" content="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/main/NexoraMarketPreview.png">
 
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/favicon.png">
 <link rel="canonical" href="https://nexoramarket.github.io/">
 
 <style>
@@ -36,6 +36,7 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 
 .lang-switch {
   font-size: 14px;
@@ -136,6 +137,7 @@ button {
   </div>
 </header>
 
+
 <div class="container" id="products"></div>
 
 <script>
@@ -153,25 +155,30 @@ const translations = {
 const products = [
   
   {
-    id: "NexoraNova-Uncensored",
-    name: { ru: "NexoraNova AI Uncensored", 
-    en: "NexoraNova AI Uncensored" },
-    short: { ru: "Локальная нейросеть без ограничений и цензуры.", 
-    en: "Local neural network without restrictions." },
+    id: "product_1",
+    name: { 
+      ru: "NexoraNova AI Uncensored", 
+      en: "NexoraNova AI Uncensored" },
+    short: { 
+      ru: "Локальная нейросеть без ограничений и цензуры.", 
+      en: "Local neural network without restrictions." },
     price: "60-300 USDT",
-    img: "NexoraMarketPreview.png"
+    img: "https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png"
   },
   {
-    id: "Dataset",
-    name: { ru: "RU Users PRO Dataset", en: "RU Users PRO Dataset" },
+    id: "product_2",
+    name: { 
+      ru: "RU Users PRO Dataset", 
+      en: "RU Users PRO Dataset" },
     short: { 
-    ru: "Готовая база пользователей для тестирования", 
-    en: "Ready-to-use user dataset for testing" 
+      ru: "Готовая база пользователей для тестирования", 
+      en: "Ready-to-use user dataset for testing" 
   },
   price: "1-7 USDT",
-  img: "NexoraMarketPreview.png"
-}
+  img: "https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png"
+  }
 ];
+
 
 function renderProducts() {
   const container = document.getElementById("products");
