@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>RU Users PRO Dataset - NexoraMarket</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" id="meta-desc">
+<meta name="robots" content="index, follow">
+<meta property="og:image" content="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png">
+<meta property="og:url" content="https://nexoramarket.github.io/products/NexoraNova-Uncensored.html">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/favicon.png">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0c;
+  color: #fff;
+}
+
+header {
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  background: #111;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang-switch {
+  font-size: 14px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.lang-switch span {
+  margin: 0 5px;
+}
+
+.lang-switch span:hover {
+  color: #fff;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.gallery {
+  flex: 1;
+  min-width: 300px;
+}
+
+.main-img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.info {
+  flex: 1;
+  min-width: 280px;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.desc {
+  color: #aaa;
+  margin-bottom: 15px;
+  white-space: pre-line;
+}
+
+.price {
+  color: #4ade80;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+select, button {
+  padding: 12px;
+  width: 100%;
+  background: #4ade80;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+select {
+  margin-bottom: 15px;
+}
+
+.back {
+  margin-top: 20px;
+  display: inline-block;
+  color: #aaa;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  NexoraMarket
+  <div class="lang-switch">
+    <span onclick="setLang('ru')">RU</span> |
+    <span onclick="setLang('en')">ENG</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="gallery">
+    <img id="mainImage" class="main-img" src="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png">
+  </div>
+
+  <div class="info">
+    <h1 id="title"></h1>
+
+    <div id="main-desc" class="desc"></div>
+
+    <label id="version-label"></label>
+
+    <select id="version-select" onchange="updatePriceAndDescription()">
+      <option value="1k">1K</option>
+      <option value="5k">5K</option>
+      <option value="10k">10K</option>
+      <option value="15k">15K</option>
+    </select>
+
+    <label id="currency-label"></label>
+    <select id="currency-select" onchange="updatePriceAndDescription()">
+      <option value="usdt">USDT</option>
+      <option value="btc">BTC</option>
+      <option value="xmr">XMR</option>
+    </select>
+
+    <div id="current-description" class="desc"></div>
+    <div id="current-price" class="price"></div>
+
+    <button id="buy-btn" onclick="buy()"></button>
+
+    <a href="../index.html" class="back" id="back-btn">← Back</a>
+  </div>
+
+</div>
+
+<script>
+let lang = localStorage.getItem("lang") || "ru";
+
+const product = {
+  title: {
+    ru: "RU Users PRO Dataset",
+    en: "RU Users PRO Dataset"
+  },
+
+  description: {
+    ru: "Готовая база пользователей для тестирования, парсинга и разработки.\n\n✔ Реалистичные имена\n✔ Валидные email домены\n✔ Подходит для QA и dev\n\nФормат: CSV\n(База сгенерирована и не является утечкой)",
+    en: "Ready-to-use user dataset for testing, parsing and development.\n\n✔ Realistic names\n✔ Valid email domains\n✔ Suitable for QA and dev\n\nFormat: CSV\n(This database is generated and not a leak)"
+  },
+
+  prices: {
+    "1k":  { usdt: 1, btc: 0.000015, xmr: 0.003 },
+    "5k":  { usdt: 3, btc: 0.000045, xmr: 0.009 },
+    "10k": { usdt: 5, btc: 0.000075, xmr: 0.015 },
+    "15k": { usdt: 7, btc: 0.00011,  xmr: 0.022 }
+  },
+
+  versions: {
+    "1k": {
+      ru: "1 000 пользователей",
+      en: "1,000 users"
+    },
+    "5k": {
+      ru: "5 000 пользователей",
+      en: "5,000 users"
+    },
+    "10k": {
+      ru: "10 000 пользователей",
+      en: "10,000 users"
+    },
+    "15k": {
+      ru: "15 000 пользователей",
+      en: "15,000 users"
+    }
+  }
+};
+
+const translations = {
+  ru: {
+    buy: "Купить",
+    back: "← Назад",
+    version: "Выберите объём",
+    currency: "Выберите валюту",
+    subject: "Покупка"
+  },
+  en: {
+    buy: "Buy",
+    back: "← Back",
+    version: "Select size",
+    currency: "Select currency",
+    subject: "Purchase"
+  }
+};
+
+function applyTranslations() {
+  document.getElementById("buy-btn").innerText = translations[lang].buy;
+  document.getElementById("back-btn").innerText = translations[lang].back;
+  document.getElementById("version-label").innerText = translations[lang].version;
+  document.getElementById("currency-label").innerText = translations[lang].currency;
+}
+
+function applyContent() {
+  document.getElementById("title").innerText = product.title[lang];
+  document.getElementById("main-desc").innerText = product.description[lang];
+  document.getElementById("meta-desc").setAttribute("content", product.description[lang]);
+
+  updatePriceAndDescription();
+}
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem("lang", l);
+  applyTranslations();
+  applyContent();
+}
+
+function updatePriceAndDescription() {
+  const version = document.getElementById("version-select").value;
+  const currency = document.getElementById("currency-select").value;
+
+  const description = product.versions[version][lang];
+  const price = product.prices[version][currency];
+
+  document.getElementById("current-description").innerText = description;
+  document.getElementById("current-price").innerText =
+    price + " " + currency.toUpperCase();
+}
+
+function buy() {
+  const version = document.getElementById("version-select").value;
+  const currency = document.getElementById("currency-select").value;
+
+  const subject = encodeURIComponent(
+    `${translations[lang].subject}: ${product.title[lang]} (${version}, ${currency})`
+  );
+
+  window.location.href = `mailto:nexoramarket@proton.me?subject=${subject}`;
+}
+
+applyTranslations();
+applyContent();
+</script>
+
+</body>
+</html>
