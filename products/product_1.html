@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>NexoraNova - Uncensored AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/favicon.png">
+<meta name="description" id="meta-desc">
+<meta name="robots" content="index, follow">
+<meta property="og:image" content="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png">
+<meta property="og:url" content="https://nexoramarket.github.io/products/NexoraNova-Uncensored.html">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0c;
+  color: #fff;
+}
+
+header {
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  background: #111;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang-switch {
+  font-size: 14px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.lang-switch span {
+  margin: 0 5px;
+}
+
+.lang-switch span:hover {
+  color: #fff;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.gallery {
+  flex: 1;
+  min-width: 300px;
+}
+
+.main-img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.info {
+  flex: 1;
+  min-width: 280px;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.desc {
+  color: #aaa;
+  margin-bottom: 15px;
+  white-space: pre-line;
+}
+
+.price {
+  color: #4ade80;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+select, button {
+  padding: 12px;
+  width: 100%;
+  background: #4ade80;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+select {
+  margin-bottom: 15px;
+}
+
+.back {
+  margin-top: 20px;
+  display: inline-block;
+  color: #aaa;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  NexoraMarket
+  <div class="lang-switch">
+    <span onclick="setLang('ru')">RU</span> |
+    <span onclick="setLang('en')">ENG</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="gallery">
+    <img id="mainImage" class="main-img" src="https://raw.githubusercontent.com/NexoraMarket/NexoraMarket.github.io/refs/heads/main/resources/NexoraMarketLogo.png">
+  </div>
+
+  <div class="info">
+    <h1 id="title"></h1>
+
+    <div id="main-desc" class="desc"></div>
+    <div id="trust-block" class="desc"></div>
+
+    <label id="version-label"></label>
+
+    <select id="version-select" onchange="updatePriceAndDescription()">
+      <option value="q4">Q4</option>
+      <option value="q6">Q6</option>
+      <option value="q8">Q8</option>
+      <option value="bf16">BF16</option>
+    </select>
+
+    <label id="currency-label">Валюта</label>
+    <select id="currency-select" onchange="updatePriceAndDescription()">
+      <option value="usdt">USDT</option>
+      <option value="btc">BTC</option>
+      <option value="xmr">XMR</option>
+    </select>
+
+    <div id="current-description" class="desc"></div>
+    <div id="current-price" class="price"></div>
+
+    <button id="buy-btn" onclick="buy()"></button>
+
+    <a href="../index.html" class="back" id="back-btn">← Back</a>
+  </div>
+
+</div>
+
+<script>
+let lang = localStorage.getItem("lang") || "ru";
+
+const product = {
+  title: {
+    ru: "NexoraNova AI",
+    en: "NexoraNova AI"
+  },
+  description: {
+    ru: "NexoraNova AI - это готовая локальная нейросеть, оптимизированная для работы без сложной настройки.\n\nВ отличие от стандартных моделей, NexoraNova уже подготовлена к использованию:\n- оптимизирована под обычные GPU (Q4-BF16)\n- не требует сложной установки\n- полностью работает локально без внешних сервисов\n\nВы получаете не просто модель, а готовое решение:\n- версии под разное железо и задачи\n- стабильную работу без ручной настройки\n- простой и понятный запуск\n\n📦 В комплекте:\n- модель NexoraNova (выбранная версия)\n- подробный гайд по установке\n- инструкции для Ollama / LM Studio / WebUI\n- примеры использования\n\n💡 Почему это не бесплатно:\nСборка и оптимизация локальных моделей требует времени и опыта. NexoraNova уже настроена так, чтобы вы могли начать сразу, без часов настройки.\n\n📊 Версии:\nQ4 - лёгкая и быстрая\nQ6 - баланс качества и скорости\nQ8 - улучшенное качество\nBF16 - максимальная точность\n\n🎯 Подходит для:\n- локальной генерации текста\n- экспериментов с AI\n- разработки и тестирования\n- пользователей, которым важна автономность\n\nСистемные требования:\n• Q4: ~6-8GB VRAM\n• Q6: ~10GB VRAM\n• Q8: ~12GB VRAM\n• BF16: ~18GB+ VRAM (GPU обязателен) \n\n🔓 Ключевое отличие NexoraNova: в отличие от большинства публичных моделей, она не блокирует ответы на «чувствительные» темы, не вставляет искусственные отказы и фильтры, не ограничивает стиль или формат генерации и не навязывает «безопасные» ответы. Модель ведёт себя как инструмент, а не как модерируемый сервис, при этом ответственность за использование остаётся на стороне пользователя.\n",
+    en: "NexoraNova AI is a ready-to-use local neural network optimized for unrestricted use without complex setup.\n\nUnlike standard models, NexoraNova is pre-configured and ready to run:\n- optimized for real consumer GPUs (Q4-BF16)\n- no complicated setup required\n- fully local with no external dependencies\n\nYou’re not just getting a model - you’re getting a complete solution:\n- versions for different hardware and use cases\n- stable performance out of the box\n- simple setup process\n\n📦 Included:\n- NexoraNova model (selected version)\n- detailed installation guide\n- instructions for Ollama / LM Studio / WebUI\n- usage examples\n\n💡 Why it’s not free:\nBuilding and optimizing local models takes time and experience. NexoraNova is ready so you can start immediately.\n\n📊 Versions:\nQ4 - lightweight and fast\nQ6 - balanced performance\nQ8 - improved quality\nBF16 - maximum precision\n\n🎯 Suitable for:\n- local text generation\n- AI experiments\n- development and testing\n- users who value privacy and control\n\nSystem requirements:\n• Q4: ~6-8GB VRAM\n• Q6: ~10GB VRAM\n• Q8: ~12GB VRAM\n• BF16: ~18GB+ VRAM (GPU required) \n\n🔓 Key difference of NexoraNova: unlike most public models, it does not block responses to “sensitive” topics, does not inject artificial refusals or filters, does not restrict generation style or format, and does not enforce “safe” answers. The model behaves as a tool rather than a moderated service, while responsibility for its usage remains on the user.\n"
+  },
+  trust: {
+    ru: "🔍 Почему NexoraNova:\n- модель протестирована перед сборкой\n- стабильная работа без ручной настройки\n- не требует сложной установки\n- работает полностью локально\n\n📌 Важно:\nЭто не «уникальная магическая модель», а оптимизированная и готовая сборка, которая экономит время и избавляет от проблем с настройкой.\nЕсли вы уже умеете собирать и настраивать модели самостоятельно - возможно, вам это не нужно.\nНо если вы хотите просто скачать и сразу начать работать - это решение для вас.",
+    en: "🔍 Why NexoraNova:\n- tested before packaging\n- stable out-of-the-box performance\n- no complex setup required\n- fully local operation\n\n📌 Important:\nThis is not a “magic unique model”, but a properly optimized and ready-to-use build that saves time and avoids setup issues.\nIf you already know how to build and configure models yourself - you may not need this.\nBut if you want to download and start immediately - this is for you."
+  },
+  prices: {
+    q4:   { usdt: 60,  btc: 0.0009,  xmr: 0.19 },
+    q6:   { usdt: 90,  btc: 0.0013,  xmr: 0.27 },
+    q8:   { usdt: 140, btc: 0.0021,  xmr: 0.40 },
+    bf16: { usdt: 300, btc: 0.0044,  xmr: 1.05 }
+  },
+  versions: {
+    q4: {
+      ru: "Быстрая версия, минимальная нагрузка",
+      en: "Fast version, minimal load"
+    },
+    q6: {
+      ru: "Баланс качества и скорости",
+      en: "Balanced quality and speed"
+    },
+    q8: {
+      ru: "Хорошее качество генерации",
+      en: "Good generation quality"
+    },
+    bf16: {
+      ru: "Эталон качества (без сжатия, максимальная точность)",
+      en: "Reference quality (no compression, maximum accuracy)"
+    }
+  }
+};
+
+const translations = {
+  ru: {
+    buy: "Купить",
+    back: "← Назад",
+    version: "Выберите версию",
+    currency: "Выберите валюту",
+    subject: "Покупка"
+  },
+  en: {
+    buy: "Buy",
+    back: "← Back",
+    version: "Select version",
+    currency: "Select currency",
+    subject: "Purchase"
+  }
+};
+
+function applyTranslations() {
+  document.getElementById("buy-btn").innerText = translations[lang].buy;
+  document.getElementById("back-btn").innerText = translations[lang].back;
+  document.getElementById("version-label").innerText = translations[lang].version;
+  document.getElementById("currency-label").innerText = translations[lang].currency;
+}
+
+function applyContent() {
+  document.getElementById("title").innerText = product.title[lang];
+  document.getElementById("main-desc").innerText = product.description[lang];
+  document.getElementById("trust-block").innerText = product.trust[lang];
+  document.getElementById("meta-desc").setAttribute("content", product.description[lang]);
+
+  updatePriceAndDescription();
+}
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem("lang", l);
+
+  applyTranslations();
+  applyContent();
+}
+
+function updatePriceAndDescription() {
+  const version = document.getElementById("version-select").value;
+  const currency = document.getElementById("currency-select").value;
+
+  const description = product.versions[version][lang];
+  const price = product.prices[version][currency];
+
+  document.getElementById("current-description").innerText = description;
+  document.getElementById("current-price").innerText =
+    price + " " + currency.toUpperCase();
+}
+
+function buy() {
+  const version = document.getElementById("version-select").value;
+  const currency = document.getElementById("currency-select").value;
+
+  const subject = encodeURIComponent(
+    `${translations[lang].subject}: ${product.title[lang]} (${version}, ${currency})`
+  );
+
+  window.location.href = `mailto:nexoramarket@proton.me?subject=${subject}`;
+}
+
+applyTranslations();
+applyContent();
+</script>
+
+</body>
+</html>
